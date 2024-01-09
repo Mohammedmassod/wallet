@@ -11,6 +11,10 @@ namespace wallet.Domain.Entities
     {
         public int Accountint{ get; set; }
         public decimal Balance { get; set; }
-        public Customer Customer { get; set; }  
+        public Customer Customer { get; set; }
+
+
+        public ICollection<Transaction> Transactions { get; set; }
+
     }
 }

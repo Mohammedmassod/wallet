@@ -12,8 +12,9 @@ namespace wallet.Domain.Entities
             public int Transactionint{ get; set; }
             public string TransactionType { get; set; }
             public decimal Amount { get; set; }
+            public int ToAcount { get; set; }
             public DateTime TransactionDate { get; set; }
-            public Customer Customers { get; set; }
+            public Account Accounts { get; set; }
             public Order Orders { get; set; }
 
 

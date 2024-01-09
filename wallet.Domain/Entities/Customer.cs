@@ -17,7 +17,6 @@ namespace wallet.Domain.Entities
         public string Address { get; set; }
 
         // Navigation properties for relationships
-        public ICollection<Transaction> Transactions { get; set; }
         public ICollection<Account> Accounts { get; set; }
     }
 }
