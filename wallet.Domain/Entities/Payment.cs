@@ -3,19 +3,13 @@ using System.Collections.Generic;
 
 namespace wallet.Domain.Entities
 {
-    public class Payment 
+    public class Payment: EntityBase
     {
-        public int PaymentId { get; set; }
-        public int CustomerId { get; set; }
+        public int Paymentint{ get; set; }
         public decimal Amount { get; set; }
         public DateTime PaymentDate { get; set; }
 
+        public Customer Customer { get; set; }
 
-        /* #region Relations
-
-         public Wallet Wallet { get; set; }
-         public ICollection<Order> Orders { get; set; }
- 
-#endregion*/
     }
 }

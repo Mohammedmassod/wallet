@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 
 namespace wallet.Domain.Entities
 {
-    public class Transaction
+    public class Transaction : EntityBase
     {
-        // Transaction entity
       
-            public int TransactionId { get; set; }
-            public int CustomerId { get; set; }
+            public int Transactionint{ get; set; }
             public string TransactionType { get; set; }
             public decimal Amount { get; set; }
             public DateTime TransactionDate { get; set; }
-        
+            public Customer Customers { get; set; }
+            public Order Orders { get; set; }
+
+
     }
 }

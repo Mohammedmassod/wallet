@@ -3,19 +3,17 @@ using System.Collections.Generic;
 
 namespace wallet.Domain.Entities
 {
-    public class Currency: EntityBase
+    public class Service:EntityBase
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Abbreviation { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
 
         #region Relations
 
-        public ICollection<Wallet> Wallets { get; set; }
+        public ICollection<Order> Orders { get; set; }
 
         #endregion
-
     }
 }

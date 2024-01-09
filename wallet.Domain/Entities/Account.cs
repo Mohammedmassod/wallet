@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace wallet.Domain.Entities
 {
     // Account entity
-    public class Account
+    public class Account: EntityBase
     {
-        public int AccountId { get; set; }
-        public int CustomerId { get; set; }
+        public int Accountint{ get; set; }
         public decimal Balance { get; set; }
+        public Customer Customer { get; set; }  
     }
 }

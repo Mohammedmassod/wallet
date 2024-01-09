@@ -12,8 +12,6 @@ namespace wallet.infraestructure
 
         #region Tables
 
-        public DbSet<Currency> Currencies { get; set; }
-        public DbSet<Wallet> Wallets { get; set; }
         public DbSet<Payment> Payments { get; set; }
         
         #endregion
