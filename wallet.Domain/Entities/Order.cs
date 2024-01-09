@@ -12,7 +12,6 @@ namespace wallet.Domain.Entities
 
         #region Relations
 
-        public Payment Payment { get; set; }
         public Service Service { get; set; }
 
         public ICollection<Transaction> Transactions { get; set; }
