@@ -13,6 +13,7 @@ namespace wallet.Domain.Entities
         public decimal Balance { get; set; }
         public Customer Customer { get; set; }
 
+        public Wallet Wallets { get; set; }
 
         public ICollection<Transaction> Transactions { get; set; }
 
