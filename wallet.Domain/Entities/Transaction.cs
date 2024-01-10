@@ -9,11 +9,12 @@ namespace wallet.Domain.Entities
     public class Transaction : EntityBase
     {
       
-            public int Transactionint{ get; set; }
+            public int TransactionId{ get; set; }
             public string TransactionType { get; set; }
             public decimal Amount { get; set; }
             public int ToAccount { get; set; }
             public DateTime TransactionDate { get; set; }
+            public string Status { get; set; }
             public Account Accounts { get; set; }
             public Order Orders { get; set; }
 
