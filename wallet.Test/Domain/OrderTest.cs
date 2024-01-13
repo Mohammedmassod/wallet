@@ -7,7 +7,7 @@ using wallet.Domain.Entities;
 
 namespace wallet.Test.Domain
 {
-    public class OrderTests
+    public class OrderTest
     {
         [Theory]
         [InlineData("", "Description", 1, 1, 1, 1, 1, 10, -1, "OrderStatus is required", "TotalOrderAmount cannot be negative")]
