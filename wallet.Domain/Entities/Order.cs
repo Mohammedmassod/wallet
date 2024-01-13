@@ -6,7 +6,6 @@ namespace wallet.Domain.Entities
         public string OrderStatus { get; set; }
         public string Description { get; set; }
         public int AccountId { get; set; }
-        public int ProductId { get; set; }
         public int ServiceId { get; set; }
         public int InvoiceId { get; set; }
         public int Quantity { get; set; }
@@ -27,10 +26,7 @@ namespace wallet.Domain.Entities
                 errors.Add("AccountId must be greater than 0");
             }
 
-            if (ProductId <= 0)
-            {
-                errors.Add("ProductId must be greater than 0");
-            }
+            
 
             if (ServiceId <= 0)
             {
