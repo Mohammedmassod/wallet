@@ -7,7 +7,7 @@ using wallet.Domain.Entities;
 
 namespace wallet.Test.Domain
 {
-    public class AccountTypeTests
+    public class AccountTypeTest
     {
         [Theory]
         [InlineData("", "Description", "Name is required")]

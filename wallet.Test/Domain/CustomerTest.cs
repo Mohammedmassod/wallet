@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace wallet.Tests.Domain
 {
-    public class CustomerTests
+    public class CustomerTest
     {
         [Theory]
         [InlineData("", "test@test.com", "1234567890", "123 Main St", "Name is required")]
