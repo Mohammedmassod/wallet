@@ -7,7 +7,7 @@ using wallet.Domain.Entities;
 
 namespace wallet.Test.Domain
 {
-    public class CurrencyTests
+    public class CurrencyTest
     {
         // Existing tests...
 
