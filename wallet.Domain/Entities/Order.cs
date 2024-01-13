@@ -7,7 +7,7 @@ namespace wallet.Domain.Entities
         public string Description { get; set; }
         public int AccountId { get; set; }
         public int ProductId { get; set; }
-        public Service Service { get; set; }
+        public int ServiceId { get; set; }
         public int InvoiceId { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
