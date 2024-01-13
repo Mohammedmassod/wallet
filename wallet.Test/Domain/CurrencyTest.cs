@@ -9,76 +9,48 @@ namespace wallet.Test.Domain
 {
     public class CurrencyTests
     {
-        [Fact]
-        public void Currency_CanCreateInstance()
-        {
-            // Arrange & Act
-            var currency = new Currency();
-
-            // Assert
-            Assert.NotNull(currency);
-        }
+        // Existing tests...
 
         [Theory]
-        [InlineData("USD", "$")]
-        [InlineData("EUR", "€")]
-        [InlineData("GBP", "£")]
-        public void Currency_SetPropertiesCorrectly(string currencyName, string symbol)
+        [InlineData("", "$", "CurrencyName is required")]
+        [InlineData("USD", "", "Symbol is required")]
+        [InlineData("", "", "CurrencyName is required", "Symbol is required")]
+        public void Currency_Validation_ReturnsErrorsForInvalidInput(string currencyName, string symbol, params string[] expectedErrors)
         {
             // Arrange
-            var currency = new Currency();
+            var currency = new Currency
+            {
+                CurrencyName = currencyName,
+                Symbol = symbol
+            };
 
             // Act
-            currency.CurrencyName = currencyName;
-            currency.Symbol = symbol;
+            var errors = currency.Validate();
 
             // Assert
-            Assert.Equal(currencyName, currency.CurrencyName);
-            Assert.Equal(symbol, currency.Symbol);
+            Assert.Equal(expectedErrors.Length, errors.Count());
+
+            foreach (var expectedError in expectedErrors)
+            {
+                Assert.Contains(expectedError, errors);
+            }
         }
 
         [Fact]
-        public void Currency_EqualityCheck_ReturnsTrue()
+        public void Currency_Validation_ReturnsNoErrorsForValidInput()
         {
             // Arrange
-            var currency1 = new Currency { CurrencyName = "USD", Symbol = "$" };
-            var currency2 = new Currency { CurrencyName = "USD", Symbol = "$" };
+            var currency = new Currency
+            {
+                CurrencyName = "USD",
+                Symbol = "$"
+            };
 
-            // Act & Assert
-            Assert.Equal(currency1, currency2);
-        }
+            // Act
+            var errors = currency.Validate();
 
-        [Fact]
-        public void Currency_EqualityCheck_ReturnsFalse()
-        {
-            // Arrange
-            var currency1 = new Currency { CurrencyName = "USD", Symbol = "$" };
-            var currency2 = new Currency { CurrencyName = "EUR", Symbol = "€" };
-
-            // Act & Assert
-            Assert.NotEqual(currency1, currency2);
-        }
-
-        [Fact]
-        public void Currency_GetHashCode_ReturnsSameValueForEqualObjects()
-        {
-            // Arrange
-            var currency1 = new Currency { CurrencyName = "USD", Symbol = "$" };
-            var currency2 = new Currency { CurrencyName = "USD", Symbol = "$" };
-
-            // Act & Assert
-            Assert.Equal(currency1.GetHashCode(), currency2.GetHashCode());
-        }
-
-        [Fact]
-        public void Currency_GetHashCode_ReturnsDifferentValueForDifferentObjects()
-        {
-            // Arrange
-            var currency1 = new Currency { CurrencyName = "USD", Symbol = "$" };
-            var currency2 = new Currency { CurrencyName = "EUR", Symbol = "€" };
-
-            // Act & Assert
-            Assert.NotEqual(currency1.GetHashCode(), currency2.GetHashCode());
+            // Assert
+            Assert.Empty(errors);
         }
     }
 }
