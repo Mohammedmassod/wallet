@@ -10,13 +10,13 @@ namespace wallet.Domain.Entities
     // Customer entity
     public class Customer : EntityBase
     {
-        public int Customerint{ get; set; }
-        public string CustomerName { get; set; }
+        public int Id{ get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
 
         // Navigation properties for relationships
-        public ICollection<Account> Accounts { get; set; }
+       // public ICollection<Account> Accounts { get; set; }
     }
 }
