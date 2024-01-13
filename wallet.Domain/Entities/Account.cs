@@ -8,7 +8,8 @@ namespace wallet.Domain.Entities
         public int CustomerId { get; set; }
         public int ProviderId { get; set; }
         public int AccountType { get; set; }
-        public decimal Balance { get; set; }
+        public decimal Balance { get; set; }    
+
         public IEnumerable<string> Validate()
         {
             var errors = new List<string>();
