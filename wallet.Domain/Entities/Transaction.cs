@@ -6,12 +6,11 @@
             public string TransactionType { get; set; }
             public decimal TransactionAmount { get; set; }
             public int OrderId { get; set; }
-            public int FromAccount { get; set; }
-            public int ToAccount { get; set; }
+            public int FromAccount { get; set; } //FK From Account
+            public int ToAccount { get; set; }//FK From Account
             public string Status { get; set; }
-           // public Account Accounts { get; set; }
-          //  public Order Orders { get; set; }
 
+       
 
     }
 }

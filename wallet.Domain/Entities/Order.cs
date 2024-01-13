@@ -13,18 +13,53 @@ namespace wallet.Domain.Entities
         public decimal UnitPrice { get; set; }
         public decimal TotalOrderAmount { get; set; }
 
-        /*     form Invoice Entity 
-         *     public int PaymentId { get; set; } 
-                public int ServiceId { get; set; } //FK From Entity Service*/
+        public IEnumerable<string> Validate()
+        {
+            var errors = new List<string>();
 
-        #region Relations
+            if (string.IsNullOrWhiteSpace(OrderStatus))
+            {
+                errors.Add("OrderStatus is required");
+            }
 
+            if (AccountId <= 0)
+            {
+                errors.Add("AccountId must be greater than 0");
+            }
 
-       // public ICollection<Transaction> Transactions { get; set; }
+            if (ProductId <= 0)
+            {
+                errors.Add("ProductId must be greater than 0");
+            }
 
+            if (ServiceId <= 0)
+            {
+                errors.Add("ServiceId must be greater than 0");
+            }
 
-        #endregion
+            if (InvoiceId <= 0)
+            {
+                errors.Add("InvoiceId must be greater than 0");
+            }
 
+            if (Quantity <= 0)
+            {
+                errors.Add("Quantity must be greater than 0");
+            }
 
+            if (UnitPrice <= 0)
+            {
+                errors.Add("UnitPrice must be greater than 0");
+            }
+
+            if (TotalOrderAmount < 0)
+            {
+                errors.Add("TotalOrderAmount cannot be negative");
+            }
+
+            return errors;
+        }
     }
+
 }
+
