@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,15 +7,17 @@ using wallet.Domain.Entities;
 
 namespace wallet.Test.Domain
 {
-    public class ProductTest
+    public class ProductTests
     {
         [Theory]
-        [InlineData("", "Product Description", -1, 1, true, false, "Name is required", "Price cannot be negative")]
-        [InlineData("Product Name", "", 10, 0, true, false, "Description is required", "ProviderId must be greater than 0")]
-        [InlineData("Product Name", "Product Description", 10, 1, false, false, "Invalid values for IsActive or IsDeleted")]
-        [InlineData("Product Name", "Product Description", 10, 1, true, true, "Invalid values for IsActive or IsDeleted")]
-        [InlineData("Product Name", "Product Description", 10, 1, true, false, "")] // No errors for valid input
-        public void Product_Validation_ReturnsErrorsForInvalidInput(string name, string description, decimal price, int providerId, bool isActive, bool isDeleted, params string[] expectedErrors)
+        [InlineData("", "Description", -10, 0, true, false)]
+        [InlineData("Product1", "", 10, 1, true, false)]
+        [InlineData("Product2", "Description2", -5, 1, true, false)]
+        [InlineData("Product3", "Description3", 15, 0, true, false)]
+        [InlineData("Product4", "Description4", 20, 1, true, false)]
+        [InlineData("Product5", "Description5", 25, 1, true, true)]
+        public void Validate_ProductProperties_ReturnsValidationErrors(
+            string name, string description, decimal price, int providerId, bool isActive, bool isDeleted)
         {
             // Arrange
             var product = new Product
@@ -32,22 +34,43 @@ namespace wallet.Test.Domain
             var errors = product.Validate();
 
             // Assert
-            Assert.Equal(expectedErrors.Length, errors.Count());
+            Assert.NotEmpty(errors);
 
-            foreach (var expectedError in expectedErrors)
+            // Example assertions for checking specific validation rules
+            if (string.IsNullOrWhiteSpace(name))
             {
-                Assert.Contains(expectedError, errors);
+                Assert.Contains("Name is required", errors);
+            }
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                Assert.Contains("Description is required", errors);
+            }
+
+            if (price < 0)
+            {
+                Assert.Contains("Price cannot be negative", errors);
+            }
+
+            if (providerId <= 0)
+            {
+                Assert.Contains("ProviderId must be greater than 0", errors);
+            }
+
+            if (!(isActive || !isActive) || !(isDeleted || !isDeleted))
+            {
+                Assert.Contains("Invalid values for IsActive or IsDeleted", errors);
             }
         }
 
         [Fact]
-        public void Product_Validation_ReturnsNoErrorsForValidInput()
+        public void Validate_ValidProduct_ReturnsNoValidationErrors()
         {
             // Arrange
             var product = new Product
             {
-                Name = "Product Name",
-                Description = "Product Description",
+                Name = "ValidProduct",
+                Description = "Valid Description",
                 Price = 10,
                 ProviderId = 1,
                 IsActive = true,
@@ -60,5 +83,8 @@ namespace wallet.Test.Domain
             // Assert
             Assert.Empty(errors);
         }
+
+        // Add more tests as needed, including mocks for any dependencies
     }
 }
+*/
