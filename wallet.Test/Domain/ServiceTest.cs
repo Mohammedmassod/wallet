@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,15 +7,13 @@ using wallet.Domain.Entities;
 
 namespace wallet.Test.Domain
 {
-    public class ServiceTest
+    public class ServiceTests
     {
+        // Test case for successful validation
         [Theory]
-        [InlineData("", -1, 1, true, false, "Name is required", "Price cannot be negative")]
-        [InlineData("Service Name", 10, 0, true, false, "ProviderId must be greater than 0")]
-        [InlineData("Service Name", -10, 1, false, false, "Price cannot be negative", "Invalid values for IsActive or IsDeleted")]
-        [InlineData("Service Name", 10, 1, true, true, "Invalid values for IsActive or IsDeleted")]
-        [InlineData("Service Name", 10, 1, true, false, "")] // No errors for valid input
-        public void Service_Validation_ReturnsErrorsForInvalidInput(string name, decimal price, int providerId, bool isActive, bool isDeleted, params string[] expectedErrors)
+        [InlineData("ServiceA", 10.5, 1, 2, true, false)]
+        public void Validate_ValidService_NoErrors(
+            string name, decimal price, int providerId, int productId, bool isActive, bool isDeleted)
         {
             // Arrange
             var service = new Service
@@ -23,6 +21,7 @@ namespace wallet.Test.Domain
                 Name = name,
                 Price = price,
                 ProviderId = providerId,
+                ProductId = productId,
                 IsActive = isActive,
                 IsDeleted = isDeleted
             };
@@ -31,33 +30,37 @@ namespace wallet.Test.Domain
             var errors = service.Validate();
 
             // Assert
-            Assert.Equal(expectedErrors.Length, errors.Count());
-
-            foreach (var expectedError in expectedErrors)
-            {
-                Assert.Contains(expectedError, errors);
-            }
+            Assert.Empty(errors);
         }
 
-        [Fact]
-        public void Service_Validation_ReturnsNoErrorsForValidInput()
+        // Test cases for validation errors
+        [Theory]
+        [InlineData("", 10.5, 1, 2, true, false, "Name is required")]
+        [InlineData("ServiceA", -5, 1, 2, true, false, "Price cannot be negative")]
+        [InlineData("ServiceA", 10.5, 0, 2, true, false, "ProviderId must be greater than 0")]
+        // Add more test cases for other validation rules...
+
+        public void Validate_InvalidService_ReturnsErrors(
+            string name, decimal price, int providerId, int productId, bool isActive, bool isDeleted, string expectedError)
         {
             // Arrange
             var service = new Service
             {
-                Name = "Service Name",
-                Price = 10,
-                ProviderId = 1,
-                IsActive = true,
-                IsDeleted = false
+                Name = name,
+                Price = price,
+                ProviderId = providerId,
+                ProductId = productId,
+                IsActive = isActive,
+                IsDeleted = isDeleted
             };
 
             // Act
             var errors = service.Validate();
 
             // Assert
-            Assert.Empty(errors);
+            Assert.Contains(expectedError, errors);
         }
+
+
     }
 }
-*/

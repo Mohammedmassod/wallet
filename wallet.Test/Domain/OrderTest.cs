@@ -1,4 +1,5 @@
-﻿/*using System;
+﻿using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,24 +10,18 @@ namespace wallet.Test.Domain
 {
     public class OrderTest
     {
+        // Test case for successful validation
         [Theory]
-        [InlineData("", "Description", 1, 1, 1, 1, 1, 10, -1, "OrderStatus is required", "TotalOrderAmount cannot be negative")]
-        [InlineData("InProgress", "", 0, 1, 1, 1, 1, 10, 100, "AccountId must be greater than 0")]
-        [InlineData("Completed", "Order Description", 1, 0, 1, 1, 1, 10, 100, "ProductId must be greater than 0")]
-        [InlineData("Canceled", "Order Description", 1, 1, 0, 1, 1, 10, 100, "ServiceId must be greater than 0")]
-        [InlineData("Shipped", "Order Description", 1, 1, 1, 0, 1, 10, 100, "InvoiceId must be greater than 0")]
-        [InlineData("Delivered", "Order Description", 1, 1, 1, 1, 0, 10, 100, "Quantity must be greater than 0")]
-        [InlineData("InProgress", "Order Description", 1, 1, 1, 1, 1, 0, 100, "UnitPrice must be greater than 0")]
-        [InlineData("Completed", "Order Description", 1, 1, 1, 1, 1, 10, 100, "")] // No errors for valid input
-        public void Order_Validation_ReturnsErrorsForInvalidInput(string orderStatus, string description, int accountId, int productId, int serviceId, int invoiceId, int quantity, decimal unitPrice, decimal totalOrderAmount, params string[] expectedErrors)
+        [InlineData("Pending", 1, 2, 3, 5, 10, 50)]
+        public void Validate_ValidOrder_NoErrors(
+            string orderStatus, int accountId, int serviceId, int invoiceId,
+            int quantity, decimal unitPrice, decimal totalOrderAmount)
         {
             // Arrange
             var order = new Order
             {
                 OrderStatus = orderStatus,
-                Description = description,
                 AccountId = accountId,
-                ProductId = productId,
                 ServiceId = serviceId,
                 InvoiceId = invoiceId,
                 Quantity = quantity,
@@ -38,37 +33,58 @@ namespace wallet.Test.Domain
             var errors = order.Validate();
 
             // Assert
-            Assert.Equal(expectedErrors.Length, errors.Count());
-
-            foreach (var expectedError in expectedErrors)
-            {
-                Assert.Contains(expectedError, errors);
-            }
+            Assert.Empty(errors);
         }
 
-        [Fact]
-        public void Order_Validation_ReturnsNoErrorsForValidInput()
+        // Test cases for validation errors
+        [Theory]
+        [InlineData("", 1, 2, 3, 5, 10, 50, "OrderStatus is required")]
+        [InlineData("Pending", 0, 2, 3, 5, 10, 50, "AccountId must be greater than 0")]
+        [InlineData("Pending", 1, 0, 3, 5, 10, 50, "ServiceId must be greater than 0")]
+        // Add more test cases for other validation rules...
+
+        public void Validate_InvalidOrder_ReturnsErrors(
+            string orderStatus, int accountId, int serviceId, int invoiceId,
+            int quantity, decimal unitPrice, decimal totalOrderAmount, string expectedError)
         {
             // Arrange
             var order = new Order
             {
-                OrderStatus = "Completed",
-                Description = "Order Description",
-                AccountId = 1,
-                ProductId = 1,
-                ServiceId = 1,
-                InvoiceId = 1,
-                Quantity = 10,
-                UnitPrice = 100,
-                TotalOrderAmount = 1000
+                OrderStatus = orderStatus,
+                AccountId = accountId,
+                ServiceId = serviceId,
+                InvoiceId = invoiceId,
+                Quantity = quantity,
+                UnitPrice = unitPrice,
+                TotalOrderAmount = totalOrderAmount
             };
 
             // Act
             var errors = order.Validate();
 
             // Assert
-            Assert.Empty(errors);
+            Assert.Contains(expectedError, errors);
         }
+
+      /*  // Test case for mocking behavior (example using Moq)
+        [Fact]
+        public void Validate_WithMockedDependencies_MocksCalled()
+        {
+            // Arrange
+            var mockDependency = new Mock<IDependency>();
+            mockDependency.Setup(d => d.SomeMethod()).Returns("MockedResult");
+
+            var order = new Order
+            {
+                // Set properties as needed for the test
+            };
+
+            // Act
+            var result = order.SomeMethodUsingDependency(mockDependency.Object);
+
+            // Assert
+            Assert.Equal("MockedResult", result);
+            mockDependency.Verify(d => d.SomeMethod(), Times.Once);
+        }*/
     }
 }
-*/

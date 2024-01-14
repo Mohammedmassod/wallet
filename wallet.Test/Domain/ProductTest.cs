@@ -1,4 +1,5 @@
-﻿/*using System;
+﻿using Moq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,16 +8,12 @@ using wallet.Domain.Entities;
 
 namespace wallet.Test.Domain
 {
-    public class ProductTests
+    public class ProductTest
     {
+        // Test case for successful validation
         [Theory]
-        [InlineData("", "Description", -10, 0, true, false)]
-        [InlineData("Product1", "", 10, 1, true, false)]
-        [InlineData("Product2", "Description2", -5, 1, true, false)]
-        [InlineData("Product3", "Description3", 15, 0, true, false)]
-        [InlineData("Product4", "Description4", 20, 1, true, false)]
-        [InlineData("Product5", "Description5", 25, 1, true, true)]
-        public void Validate_ProductProperties_ReturnsValidationErrors(
+        [InlineData("ProductA", "DescriptionA", 10.5, 1, true, false)]
+        public void Validate_ValidProduct_NoErrors(
             string name, string description, decimal price, int providerId, bool isActive, bool isDeleted)
         {
             // Arrange
@@ -34,57 +31,62 @@ namespace wallet.Test.Domain
             var errors = product.Validate();
 
             // Assert
-            Assert.NotEmpty(errors);
-
-            // Example assertions for checking specific validation rules
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                Assert.Contains("Name is required", errors);
-            }
-
-            if (string.IsNullOrWhiteSpace(description))
-            {
-                Assert.Contains("Description is required", errors);
-            }
-
-            if (price < 0)
-            {
-                Assert.Contains("Price cannot be negative", errors);
-            }
-
-            if (providerId <= 0)
-            {
-                Assert.Contains("ProviderId must be greater than 0", errors);
-            }
-
-            if (!(isActive || !isActive) || !(isDeleted || !isDeleted))
-            {
-                Assert.Contains("Invalid values for IsActive or IsDeleted", errors);
-            }
+            Assert.Empty(errors);
         }
 
-        [Fact]
-        public void Validate_ValidProduct_ReturnsNoValidationErrors()
+        // Test cases for validation errors
+        [Theory]
+        [InlineData("", "DescriptionA", 10.5, 1, true, false, "Name is required")]
+        [InlineData("ProductA", "", 10.5, 1, true, false, "Description is required")]
+        [InlineData("ProductA", "DescriptionA", -5, 1, true, false, "Price cannot be negative")]
+        [InlineData("ProductA", "DescriptionA", 10.5, 0, true, false, "ProviderId must be greater than 0")]
+        // Add more test cases for other validation rules...
+
+        public void Validate_InvalidProduct_ReturnsErrors(
+            string name, string description, decimal price, int providerId, bool isActive, bool isDeleted, string expectedError)
         {
             // Arrange
             var product = new Product
             {
-                Name = "ValidProduct",
-                Description = "Valid Description",
-                Price = 10,
-                ProviderId = 1,
-                IsActive = true,
-                IsDeleted = false
+                Name = name,
+                Description = description,
+                Price = price,
+                ProviderId = providerId,
+                IsActive = isActive,
+                IsDeleted = isDeleted
             };
 
             // Act
             var errors = product.Validate();
 
             // Assert
-            Assert.Empty(errors);
+            Assert.Contains(expectedError, errors);
         }
 
-        // Add more tests as needed, including mocks for any dependencies
+      /*  // Test case for mocking behavior (example using Moq)
+        [Fact]
+        public void Validate_WithMockedDependencies_MocksCalled()
+        {
+            // Arrange
+            var mockDependency = new Mock<IDependency>();
+            mockDependency.Setup(d => d.SomeMethod()).Returns("MockedResult");
+
+            var product = new Product
+            {
+                // Set properties as needed for the test
+            };
+
+            // Act
+            var result = product.SomeMethodUsingDependency(mockDependency.Object);
+
+            // Assert
+            Assert.Equal("MockedResult", result);
+            mockDependency.Verify(d => d.SomeMethod(), Times.Once);
+        }*/
     }
+
+    /*public interface IDependency
+    {
+        string SomeMethod();
+    }*/
 }
-*/
