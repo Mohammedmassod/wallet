@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wallet.Domain.Entities;
 
-namespace wallet.Test.Domain
+namespace wallet.Test.Domain.Entities
 {
     public class AccountTest
     {

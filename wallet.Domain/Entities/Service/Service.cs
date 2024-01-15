@@ -1,7 +1,6 @@
-﻿
-namespace wallet.Domain.Entities
+﻿namespace wallet.Domain.Entities.Service
 {
-    public class Service:EntityBase
+    public class Service : EntityBase
     {
         public string Name { get; set; }
         public decimal Price { get; set; }

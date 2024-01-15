@@ -1,10 +1,8 @@
-﻿
-
-namespace wallet.Domain.Entities
+﻿namespace wallet.Domain.Entities.Transaction
 {
     public class TransactionType
     {
-        public string Name { get; set;}
+        public string Name { get; set; }
         public string Description { get; set; }
         public IEnumerable<string> Validate()
         {

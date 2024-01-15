@@ -3,7 +3,7 @@ using Moq;
 using wallet.Domain.Entities;
 using System.Reflection;
 
-namespace wallet.Test.Domain
+namespace wallet.Test.Domain.Entities
 {
     public class CustomerTest
     {

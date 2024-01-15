@@ -1,9 +1,8 @@
-﻿
-namespace wallet.Domain.Entities
+﻿namespace wallet.Domain.Entities.Currency
 {
     public class Currency : EntityBase
     {
-        public string CurrencyName  { get; set; }
+        public string CurrencyName { get; set; }
         public string Symbol { get; set; }
         public IEnumerable<string> Validate()
         {

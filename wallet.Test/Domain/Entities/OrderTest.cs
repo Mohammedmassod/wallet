@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using wallet.Domain.Entities;
 
-namespace wallet.Test.Domain
+namespace wallet.Test.Domain.Entities
 {
     public class OrderTest
     {
@@ -66,25 +66,25 @@ namespace wallet.Test.Domain
             Assert.Contains(expectedError, errors);
         }
 
-      /*  // Test case for mocking behavior (example using Moq)
-        [Fact]
-        public void Validate_WithMockedDependencies_MocksCalled()
-        {
-            // Arrange
-            var mockDependency = new Mock<IDependency>();
-            mockDependency.Setup(d => d.SomeMethod()).Returns("MockedResult");
+        /*  // Test case for mocking behavior (example using Moq)
+          [Fact]
+          public void Validate_WithMockedDependencies_MocksCalled()
+          {
+              // Arrange
+              var mockDependency = new Mock<IDependency>();
+              mockDependency.Setup(d => d.SomeMethod()).Returns("MockedResult");
 
-            var order = new Order
-            {
-                // Set properties as needed for the test
-            };
+              var order = new Order
+              {
+                  // Set properties as needed for the test
+              };
 
-            // Act
-            var result = order.SomeMethodUsingDependency(mockDependency.Object);
+              // Act
+              var result = order.SomeMethodUsingDependency(mockDependency.Object);
 
-            // Assert
-            Assert.Equal("MockedResult", result);
-            mockDependency.Verify(d => d.SomeMethod(), Times.Once);
-        }*/
+              // Assert
+              Assert.Equal("MockedResult", result);
+              mockDependency.Verify(d => d.SomeMethod(), Times.Once);
+          }*/
     }
 }

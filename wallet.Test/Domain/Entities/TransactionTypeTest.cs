@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using wallet.Domain.Entities;
+using wallet.Domain.Entities.Transaction;
 
-namespace wallet.Test.Domain
+namespace wallet.Test.Domain.Entities
 {
     public class TransactionTypeTest
     {

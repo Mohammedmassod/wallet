@@ -1,8 +1,6 @@
-﻿
-
-namespace wallet.Domain.Entities
+﻿namespace wallet.Domain.Entities.Product
 {
-    public class Product: EntityBase
+    public class Product : EntityBase
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -10,6 +8,7 @@ namespace wallet.Domain.Entities
         public int ProviderId { get; set; }
         public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
+        public int CategoryId { get; set; }
 
         public IEnumerable<string> Validate()
         {
@@ -34,6 +33,10 @@ namespace wallet.Domain.Entities
             {
                 errors.Add("ProviderId must be greater than 0");
             }
+            if (CategoryId <= 0)
+            {
+                errors.Add("CategoryId must be greater than 0");
+            }
 
             // Optional: Check if IsActive and IsDeleted have valid boolean values
             if (!(IsActive || !IsActive) || !(IsDeleted || !IsDeleted))
@@ -48,4 +51,4 @@ namespace wallet.Domain.Entities
 
 
 
-}   
+}

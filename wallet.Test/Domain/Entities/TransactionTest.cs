@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wallet.Domain.Entities;
+using wallet.Domain.Entities.Transaction;
 
-namespace wallet.Test.Domain
+namespace wallet.Test.Domain.Entities
 {
     public class TransactionTest
     {
@@ -64,26 +65,26 @@ namespace wallet.Test.Domain
             Assert.Contains(expectedError, errors);
         }
 
-     /*   // Test case for mocking behavior (example using Moq)
-        [Fact]
-        public void Validate_WithMockedDependencies_MocksCalled()
-        {
-            // Arrange
-            var mockDependency = new Mock<IDependency>();
-            mockDependency.Setup(d => d.SomeMethod()).Returns("MockedResult");
+        /*   // Test case for mocking behavior (example using Moq)
+           [Fact]
+           public void Validate_WithMockedDependencies_MocksCalled()
+           {
+               // Arrange
+               var mockDependency = new Mock<IDependency>();
+               mockDependency.Setup(d => d.SomeMethod()).Returns("MockedResult");
 
-            var transaction = new Transaction
-            {
-                // Set properties as needed for the test
-            };
+               var transaction = new Transaction
+               {
+                   // Set properties as needed for the test
+               };
 
-            // Act
-            var result = transaction.SomeMethodUsingDependency(mockDependency.Object);
+               // Act
+               var result = transaction.SomeMethodUsingDependency(mockDependency.Object);
 
-            // Assert
-            Assert.Equal("MockedResult", result);
-            mockDependency.Verify(d => d.SomeMethod(), Times.Once);
-        }*/
+               // Assert
+               Assert.Equal("MockedResult", result);
+               mockDependency.Verify(d => d.SomeMethod(), Times.Once);
+           }*/
     }
 
 }
