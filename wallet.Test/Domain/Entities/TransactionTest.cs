@@ -28,7 +28,7 @@ namespace wallet.Test.Domain.Entities
             };
 
             // Act
-            var errors = transaction.Validate();
+            var errors = transaction.ValidateTransaction();
 
             // Assert
             Assert.Empty(errors);
@@ -54,7 +54,7 @@ namespace wallet.Test.Domain.Entities
             };
 
             // Act
-            var errors = transaction.Validate();
+            var errors = transaction.ValidateTransaction();
 
             // Assert
             Assert.Contains(expectedError, errors);
@@ -78,7 +78,7 @@ namespace wallet.Test.Domain.Entities
             };
 
             // Act
-            var errors = transaction.Validate();
+            var errors = transaction.ValidateTransaction();
 
             // Assert
             Assert.Contains(expectedError, errors);
@@ -102,7 +102,7 @@ namespace wallet.Test.Domain.Entities
             };
 
             // Act
-            var errors = transaction.Validate();
+            var errors = transaction.ValidateTransaction();
 
             // Assert
             Assert.Contains(expectedError, errors);
@@ -127,7 +127,7 @@ namespace wallet.Test.Domain.Entities
             };
 
             // Act
-            var errors = transaction.Validate();
+            var errors = transaction.ValidateTransaction();
 
             // Assert
             Assert.Contains(expectedError, errors);
@@ -151,7 +151,7 @@ namespace wallet.Test.Domain.Entities
             };
 
             // Act
-            var errors = transaction.Validate();
+            var errors = transaction.ValidateTransaction();
 
             // Assert
             Assert.Contains(expectedError, errors);
@@ -176,7 +176,7 @@ namespace wallet.Test.Domain.Entities
             };
 
             // Act
-            var errors = transaction.Validate();
+            var errors = transaction.ValidateTransaction();
 
             // Assert
             Assert.Contains(expectedError, errors);

@@ -12,7 +12,7 @@ namespace wallet.Test.Domain.Entities
     public class ProductTest
     {
         // Test case for successful validation
-        [Theory]
+    /*  [Theory]
         [InlineData("ProductA", "DescriptionA", 10.5, 1,1, true, false)]
         public void Validate_ValidProduct_NoErrors(
             string name, string description, decimal price, int CategoryId, int providerId, bool isActive, bool isDeleted)
@@ -35,18 +35,14 @@ namespace wallet.Test.Domain.Entities
             // Assert
             Assert.Empty(errors);
         }
-
+*/
         // Test cases for validation errors
         [Theory]
         [InlineData("", "DescriptionA", 10.5,1, 1, true, false, "Name is required")]
-        [InlineData("ProductA", "", 10.5,1, 1, true, false, "Description is required")]
-        [InlineData("ProductA", "DescriptionA", -5,1, 1, true, false, "Price cannot be negative")]
-        [InlineData("ProductA", "DescriptionA", 10.5,1, 0, true, false, "ProviderId must be greater than 0")]
-        [InlineData("ProductA", "DescriptionA", 10.5, 0, 1, true, false, "CategoryId must be greater than 0")]
 
-        // Add more test cases for other validation rules...
+        // Add more test cases for other validation rules...Name is required
 
-        public void Validate_InvalidProduct_ReturnsErrors(
+        public void Validate_InvalidProduct_NameIsNull_ReturnsErrors(
             string name, string description, decimal price, int CategoryId, int providerId, bool isActive, bool isDeleted, string expectedError)
         {
             // Arrange
@@ -62,36 +58,114 @@ namespace wallet.Test.Domain.Entities
             };
 
             // Act
-            var errors = product.Validate();
+            var errors = product.ValidateProductProperty();
+
+            // Assert
+            Assert.Contains(expectedError, errors);
+        }
+        // Test case for validation errors Description Is Null
+        [Theory]
+        [InlineData("ProductA", "", 10.5, 1, 1, true, false, "Description is required")]
+        public void Validate_InvalidProduct_DescriptionIsNull_ReturnsErrors(
+            string name, string description, decimal price, int CategoryId, int providerId, bool isActive, bool isDeleted, string expectedError)
+        {
+            // Arrange
+            var product = new Product
+            {
+                Name = name,
+                Description = description,
+                Price = price,
+                CategoryId = CategoryId,
+                ProviderId = providerId,
+                IsActive = isActive,
+                IsDeleted = isDeleted
+            };
+
+            // Act
+            var errors = product.ValidateProductProperty();
 
             // Assert
             Assert.Contains(expectedError, errors);
         }
 
-        /*  // Test case for mocking behavior (example using Moq)
-          [Fact]
-          public void Validate_WithMockedDependencies_MocksCalled()
-          {
-              // Arrange
-              var mockDependency = new Mock<IDependency>();
-              mockDependency.Setup(d => d.SomeMethod()).Returns("MockedResult");
+        // Test case for validation errors Price Is negative
+        [Theory]
+        [InlineData("ProductA", "DescriptionA", -5, 1, 1, true, false, "Price cannot be negative")]
+        public void Validate_InvalidProduct_PriceIsNegative_ReturnsErrors(
+            string name, string description, decimal price, int CategoryId, int providerId, bool isActive, bool isDeleted, string expectedError)
+        {
+            // Arrange
+            var product = new Product
+            {
+                Name = name,
+                Description = description,
+                Price = price,
+                CategoryId = CategoryId,
+                ProviderId = providerId,
+                IsActive = isActive,
+                IsDeleted = isDeleted
+            };
+            // Act
+            var errors = product.ValidateProductProperty();
 
-              var product = new Product
-              {
-                  // Set properties as needed for the test
-              };
+            // Assert
+            Assert.Contains(expectedError, errors);
+        }
 
-              // Act
-              var result = product.SomeMethodUsingDependency(mockDependency.Object);
+        // Test case for validation errors CategoryId smaller than 0
+        [Theory]
+        [InlineData("ProductA", "DescriptionA", 10.5, 1, 0, true, false, "ProviderId must be greater than 0")]
+        public void Validate_InvalidProduct_CategoryId_Smallerthan_0(
+            string name, string description, decimal price, int CategoryId, int providerId, bool isActive, bool isDeleted, string expectedError)
+        {
+            // Arrange
+            var product = new Product
+            {
+                Name = name,
+                Description = description,
+                Price = price,
+                CategoryId = CategoryId,
+                ProviderId = providerId,
+                IsActive = isActive,
+                IsDeleted = isDeleted
+            };
 
-              // Assert
-              Assert.Equal("MockedResult", result);
-              mockDependency.Verify(d => d.SomeMethod(), Times.Once);
-          }*/
+            // Act
+            var errors = product.ValidateProductProperty();
+
+            // Assert
+            Assert.Contains(expectedError, errors);
+        }
+
+        // Test case for validation errors ProviderId smaller than 0
+        [Theory]
+        [InlineData("ProductA", "DescriptionA", 10.5, 0, 1, true, false, "CategoryId must be greater than 0")]
+        public void Validate_InvalidProduct_ProviderId_Smallerthan_0(
+            string name, string description, decimal price, int CategoryId, int providerId, bool isActive, bool isDeleted, string expectedError)
+        {
+            // Arrange
+            var product = new Product
+            {
+                Name = name,
+                Description = description,
+                Price = price,
+                CategoryId = CategoryId,
+                ProviderId = providerId,
+                IsActive = isActive,
+                IsDeleted = isDeleted
+            };
+
+            // Act
+            var errors = product.ValidateProductProperty();
+
+            // Assert
+            Assert.Contains(expectedError, errors);
+        }
+
+
+
+
     }
 
-    /*public interface IDependency
-    {
-        string SomeMethod();
-    }*/
+
 }

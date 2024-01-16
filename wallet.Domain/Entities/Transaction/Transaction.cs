@@ -10,7 +10,7 @@
         public int ToAccount { get; set; }//FK From Account
         public string Status { get; set; }
 
-        public IEnumerable<string> Validate()
+        public IEnumerable<string> ValidateTransaction()
         {
             var errors = new List<string>();
 

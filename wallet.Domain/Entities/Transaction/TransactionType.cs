@@ -4,7 +4,7 @@
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public IEnumerable<string> Validate()
+        public IEnumerable<string> ValidateTransactionType()
         {
             var errors = new List<string>();
 

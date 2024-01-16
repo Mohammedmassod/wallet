@@ -22,7 +22,7 @@ namespace wallet.Test.Domain.Entities
             };
 
             // Act
-            var errors = transactionType.Validate();
+            var errors = transactionType.ValidateTransactionType();
 
             // Assert
             Assert.Equal(expectedErrors.Length, errors.Count());
@@ -46,7 +46,7 @@ namespace wallet.Test.Domain.Entities
             };
 
             // Act
-            var errors = transactionType.Validate();
+            var errors = transactionType.ValidateTransactionType();
 
             // Assert
             Assert.Equal(expectedErrors.Length, errors.Count());

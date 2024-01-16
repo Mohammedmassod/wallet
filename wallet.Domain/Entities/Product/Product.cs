@@ -10,7 +10,7 @@
         public bool IsDeleted { get; set; }
         public int CategoryId { get; set; }
 
-        public IEnumerable<string> Validate()
+        public IEnumerable<string> ValidateProductProperty()
         {
             var errors = new List<string>();
 
