@@ -37,11 +37,6 @@ namespace wallet.Test.Domain.Entities
         // Test cases for validation errors
         [Theory]
         [InlineData("", 100.5, 1, 2, 3, "Completed", "TransactionType is required")]
-        [InlineData("Credit", -5, 1, 2, 3, "Completed", "TransactionAmount cannot be negative")]
-        [InlineData("Credit", 100.5, 0, 2, 3, "Completed", "OrderId must be greater than 0")]
-        [InlineData("Credit", 100.5, 1, 0, 3, "Completed", "FromAccount must be greater than 0")]
-        [InlineData("Credit", 100.5, 1, 2, 0, "Completed", "ToAccount must be greater than 0")]
-        [InlineData("Credit", 100.5, 1, 2, 3, "", "Status is required")]
         // Add more test cases for other validation rules...
 
         public void Validate_InvalidTransaction_ReturnsErrors(
@@ -65,26 +60,130 @@ namespace wallet.Test.Domain.Entities
             Assert.Contains(expectedError, errors);
         }
 
-        /*   // Test case for mocking behavior (example using Moq)
-           [Fact]
-           public void Validate_WithMockedDependencies_MocksCalled()
-           {
-               // Arrange
-               var mockDependency = new Mock<IDependency>();
-               mockDependency.Setup(d => d.SomeMethod()).Returns("MockedResult");
+        // Test cases for validation errors TransactionAmount cannot be negative
+        [Theory]
+        [InlineData("Credit", -5, 1, 2, 3, "Completed", "TransactionAmount cannot be negative")]
+        public void Validate_InvalidTransaction_Returns_ErrorsTransactionAmount_cannot_be_negative(
+            string transactionType, decimal transactionAmount, int orderId, int fromAccount, int toAccount, string status, string expectedError)
+        {
+            // Arrange
+            var transaction = new Transaction
+            {
+                TransactionType = transactionType,
+                TransactionAmount = transactionAmount,
+                OrderId = orderId,
+                FromAccount = fromAccount,
+                ToAccount = toAccount,
+                Status = status
+            };
 
-               var transaction = new Transaction
-               {
-                   // Set properties as needed for the test
-               };
+            // Act
+            var errors = transaction.Validate();
 
-               // Act
-               var result = transaction.SomeMethodUsingDependency(mockDependency.Object);
+            // Assert
+            Assert.Contains(expectedError, errors);
+        }
 
-               // Assert
-               Assert.Equal("MockedResult", result);
-               mockDependency.Verify(d => d.SomeMethod(), Times.Once);
-           }*/
+        // Test cases for validation errors OrderId_must_be_greater_than_0
+        [Theory]
+        [InlineData("Credit", 100.5, 0, 2, 3, "Completed", "OrderId must be greater than 0")]
+        public void Validate_InvalidTransaction_Returns_ErrorsOrderId_must_be_greater_than_0(
+            string transactionType, decimal transactionAmount, int orderId, int fromAccount, int toAccount, string status, string expectedError)
+        {
+            // Arrange
+            var transaction = new Transaction
+            {
+                TransactionType = transactionType,
+                TransactionAmount = transactionAmount,
+                OrderId = orderId,
+                FromAccount = fromAccount,
+                ToAccount = toAccount,
+                Status = status
+            };
+
+            // Act
+            var errors = transaction.Validate();
+
+            // Assert
+            Assert.Contains(expectedError, errors);
+        }
+
+
+        // Test cases for validation errors FromAccount must be greater than 0
+        [Theory]
+        [InlineData("Credit", 100.5, 1, 0, 3, "Completed", "FromAccount must be greater than 0")]
+        public void Validate_InvalidTransaction_Returns_ErrorsFromAccount_must_be_greater_than_0(
+            string transactionType, decimal transactionAmount, int orderId, int fromAccount, int toAccount, string status, string expectedError)
+        {
+            // Arrange
+            var transaction = new Transaction
+            {
+                TransactionType = transactionType,
+                TransactionAmount = transactionAmount,
+                OrderId = orderId,
+                FromAccount = fromAccount,
+                ToAccount = toAccount,
+                Status = status
+            };
+
+            // Act
+            var errors = transaction.Validate();
+
+            // Assert
+            Assert.Contains(expectedError, errors);
+        }
+
+        // Test cases for validation errors ToAccount must be greater than 0
+        [Theory]
+        [InlineData("Credit", 100.5, 1, 2, 0, "Completed", "ToAccount must be greater than 0")]
+        public void Validate_InvalidTransaction_Returns_Errors_ToAccount_must_be_greater_than_0(
+            string transactionType, decimal transactionAmount, int orderId, int fromAccount, int toAccount, string status, string expectedError)
+        {
+            // Arrange
+            var transaction = new Transaction
+            {
+                TransactionType = transactionType,
+                TransactionAmount = transactionAmount,
+                OrderId = orderId,
+                FromAccount = fromAccount,
+                ToAccount = toAccount,
+                Status = status
+            };
+
+            // Act
+            var errors = transaction.Validate();
+
+            // Assert
+            Assert.Contains(expectedError, errors);
+        }
+
+
+        // Test cases for validation errors Status is required If Status Is Null
+        [Theory]
+        [InlineData("Credit", 100.5, 1, 2, 3, "", "Status is required")]
+        public void Validate_InvalidTransaction_Returns_Errors_If_Status_Is_Null(
+            string transactionType, decimal transactionAmount, int orderId, int fromAccount, int toAccount, string status, string expectedError)
+        {
+            // Arrange
+            var transaction = new Transaction
+            {
+                TransactionType = transactionType,
+                TransactionAmount = transactionAmount,
+                OrderId = orderId,
+                FromAccount = fromAccount,
+                ToAccount = toAccount,
+                Status = status
+            };
+
+            // Act
+            var errors = transaction.Validate();
+
+            // Assert
+            Assert.Contains(expectedError, errors);
+        }
+
+
+
     }
 
 }
