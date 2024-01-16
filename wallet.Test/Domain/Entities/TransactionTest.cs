@@ -34,7 +34,7 @@ namespace wallet.Test.Domain.Entities
             Assert.Empty(errors);
         }
 
-        // Test cases for validation errors
+        // Test case for validation errors TransactionType Is notNull
         [Theory]
         [InlineData("", 100.5, 1, 2, 3, "Completed", "TransactionType is required")]
         // Add more test cases for other validation rules...
@@ -63,7 +63,7 @@ namespace wallet.Test.Domain.Entities
         // Test cases for validation errors TransactionAmount cannot be negative
         [Theory]
         [InlineData("Credit", -5, 1, 2, 3, "Completed", "TransactionAmount cannot be negative")]
-        public void Validate_InvalidTransaction_Returns_ErrorsTransactionAmount_cannot_be_negative(
+        public void Validate_InvalidTransaction_Returns_ErrorsTransactionAmount_is_be_negative(
             string transactionType, decimal transactionAmount, int orderId, int fromAccount, int toAccount, string status, string expectedError)
         {
             // Arrange
@@ -87,7 +87,7 @@ namespace wallet.Test.Domain.Entities
         // Test cases for validation errors OrderId_must_be_greater_than_0
         [Theory]
         [InlineData("Credit", 100.5, 0, 2, 3, "Completed", "OrderId must be greater than 0")]
-        public void Validate_InvalidTransaction_Returns_ErrorsOrderId_must_be_greater_than_0(
+        public void Validate_InvalidTransaction_Returns_Errors_OrderId_must_be_greater_than_0(
             string transactionType, decimal transactionAmount, int orderId, int fromAccount, int toAccount, string status, string expectedError)
         {
             // Arrange
@@ -161,7 +161,7 @@ namespace wallet.Test.Domain.Entities
         // Test cases for validation errors Status is required If Status Is Null
         [Theory]
         [InlineData("Credit", 100.5, 1, 2, 3, "", "Status is required")]
-        public void Validate_InvalidTransaction_Returns_Errors_If_Status_Is_Null(
+        public void Validate_InvalidTransaction_Returns_Errors_Status_Is_required(
             string transactionType, decimal transactionAmount, int orderId, int fromAccount, int toAccount, string status, string expectedError)
         {
             // Arrange
