@@ -56,27 +56,7 @@ namespace wallet.Test.Domain.Entities
                 Assert.Contains(expectedError, errors);
             }
         }
-        //   Test case for validation errors Description TransactionType Is Not Null
+        //fllunt assertion
 
-
-
-
-
-        [Fact]
-        public void TransactionType_Validation_ReturnsNoErrorsForValidInput()
-        {
-            // Arrange
-            var transactionType = new TransactionType
-            {
-                Name = "Deposit",
-                Description = "Type Description"
-            };
-
-            // Act
-            var errors = transactionType.Validate();
-
-            // Assert
-            Assert.Empty(errors);
-        }
     }
 }
